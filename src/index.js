@@ -46,25 +46,21 @@ window.addEventListener("load", (event) => {
   document.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", () => {
       // TODO: write some code here
-      
-      
-      // on every click updates the scores
-      document.getElementById('pairs-clicked').innerText = memoryGame.pairsClicked
-      document.getElementById('pairs-guessed').innerText = memoryGame.pairsGuessed
 
-     
-      
+      // on every click updates the scores
+      document.getElementById("pairs-clicked").innerText =
+        memoryGame.pairsClicked;
+      document.getElementById("pairs-guessed").innerText =
+        memoryGame.pairsGuessed;
+
       card.classList.toggle("turned");
       memoryGame.pickedCards.push(card);
       const arrLen = memoryGame.pickedCards.length;
 
       if (arrLen > 0 && arrLen % 2 === 0) {
-        // console.log(memoryGame.pickedCards);
 
         const card1 = memoryGame.pickedCards[arrLen - 2];
         const card2 = memoryGame.pickedCards[arrLen - 1];
-
-        
 
         if (
           memoryGame.checkIfPair(
@@ -72,34 +68,28 @@ window.addEventListener("load", (event) => {
             card2.dataset["cardName"]
           )
         ) {
-          console.log("cool!!");
-          document.getElementById('pairs-guessed').innerText = memoryGame.pairsGuessed
-          if (memoryGame.checkIfFinished()){
+          document.getElementById("pairs-clicked").innerText =
+            memoryGame.pairsClicked;
+
+          document.getElementById("pairs-guessed").innerText =
+            memoryGame.pairsGuessed;
+          if (memoryGame.checkIfFinished()) {
             setTimeout(function () {
               alert("Congrats!! You won, page is gonna reload now!");
-              location.reload()
-              
-          }, 1000);
-
+              location.reload();
+            }, 1000);
           }
         } else {
-          // console.log("nope");
+          document.getElementById("pairs-clicked").innerText =
+            memoryGame.pairsClicked;
+
           setTimeout(function () {
             card1.classList.toggle("turned");
             card2.classList.toggle("turned");
-            // Something you want delayed.
           }, 1000);
         }
       }
 
-      // console.log(arrLen);
-      // console.log(`Card clicked: ${card.dataset['cardName']}`);
-
-      // memoryGame.checkIfPair(card1, card2)
-      // console.log('memoryGame.pickedCards');
-      // console.log(memoryGame.pickedCards);
-
-      // console.log(card1);
     });
   });
 });
