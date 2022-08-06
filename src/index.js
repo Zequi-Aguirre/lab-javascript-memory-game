@@ -27,9 +27,19 @@ const cards = [
 
 const memoryGame = new MemoryGame(cards);
 
+const pairsClicked = document.getElementById("pairs-clicked");
+const pairsGuessed = document.getElementById("pairs-guessed");
+
+function updateScores() {
+  pairsClicked.innerText = memoryGame.pairsClicked;
+  pairsGuessed.innerText = memoryGame.pairsGuessed;
+         
+}
+
+memoryGame.shuffleCards();
+
 window.addEventListener("load", (event) => {
   let html = "";
-  memoryGame.shuffleCards();
   memoryGame.cards.forEach((pic) => {
     html += `
       <div class="card" data-card-name="${pic.name}">
@@ -42,16 +52,14 @@ window.addEventListener("load", (event) => {
   // Add all the divs to the HTML
   document.querySelector("#memory-board").innerHTML = html;
 
+  setTimeout(memoryGame.showCards, 1000);
+  
   // Bind the click event of each element to a function
   document.querySelectorAll(".card").forEach((card) => {
     card.addEventListener("click", () => {
       // TODO: write some code here
 
-      // on every click updates the scores
-      document.getElementById("pairs-clicked").innerText =
-        memoryGame.pairsClicked;
-      document.getElementById("pairs-guessed").innerText =
-        memoryGame.pairsGuessed;
+      updateScores();
 
       card.classList.toggle("turned");
       memoryGame.pickedCards.push(card);
@@ -68,11 +76,7 @@ window.addEventListener("load", (event) => {
             card2.dataset["cardName"]
           )
         ) {
-          document.getElementById("pairs-clicked").innerText =
-            memoryGame.pairsClicked;
-
-          document.getElementById("pairs-guessed").innerText =
-            memoryGame.pairsGuessed;
+          updateScores();
           if (memoryGame.checkIfFinished()) {
             setTimeout(function () {
               alert("Congrats!! You won, page is gonna reload now!");
@@ -80,8 +84,7 @@ window.addEventListener("load", (event) => {
             }, 1000);
           }
         } else {
-          document.getElementById("pairs-clicked").innerText =
-            memoryGame.pairsClicked;
+          updateScores();
 
           setTimeout(function () {
             card1.classList.toggle("turned");
@@ -91,5 +94,5 @@ window.addEventListener("load", (event) => {
       }
 
     });
-  });
+  }); 
 });

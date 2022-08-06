@@ -32,6 +32,7 @@ class MemoryGame {
     if(!this.cards){
         return undefined;
       }
+
     const shuffledArray = this.cards.sort((a, b) => 0.5 - Math.random());
       this.cards = shuffledArray;
   }
@@ -43,18 +44,31 @@ class MemoryGame {
     if(card1 === card2) {
       this.pairsGuessed++;
       return true
-    } else {
-      return false
     }
+    
+    return false
+    
   }
 
   checkIfFinished() {
     // ... write your code here
-    if (this.pairsGuessed == 12) {
+    if (this.pairsGuessed === 12) {
       return true;
-    } else {
-      return false
     }
+    
+    return false
+    
   
+  }
+
+
+  showCards() {
+  document.querySelectorAll(".card").forEach((card) => {
+    card.classList.toggle("turned")
+    setTimeout(function () {
+              card.classList.toggle("turned")
+            }, 2000);
+    })
+
   }
 }
